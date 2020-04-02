@@ -58,15 +58,17 @@ class Home extends StatelessWidget {
               return ListView(
                 children: <Widget>[
                   Center(
-                    child: DropdownButton(
-                      items: _stationDropDownItems,
-                      underline: null,
-                      value: state.station,
-                      onChanged: (station) =>  {
-                        BlocProvider
-                          .of<StationBloc>(context)
-                          .add(FetchStationDetails(station: station))
-                      }
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton(
+                        items: _stationDropDownItems,
+                        underline: null,
+                        value: state.station,
+                        onChanged: (station) =>  {
+                          BlocProvider
+                            .of<StationBloc>(context)
+                            .add(FetchStationDetails(station: station))
+                        }
+                      ),
                     ),
                   ),
                   Padding(

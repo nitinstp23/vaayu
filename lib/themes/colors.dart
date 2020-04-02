@@ -10,7 +10,7 @@ Color greyColor = Colors.grey[800];
 Color darkGreyColor = Color(0xFFB8B2CB);
 
 final appTheme = ThemeData(
-  primarySwatch: Colors.purple,
+  primarySwatch: Colors.deepPurple,
   backgroundColor: Colors.white,
   appBarTheme: AppBarTheme(
     color: secondColor
