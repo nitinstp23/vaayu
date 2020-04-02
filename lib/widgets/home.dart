@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:vaayu/themes/colors.dart';
 import 'package:vaayu/widgets/widgets.dart';
 import 'package:vaayu/models/models.dart';
 import 'package:vaayu/blocs/blocs.dart';
@@ -22,44 +23,31 @@ class Home extends StatelessWidget {
           child: Text(
             station.displayName,
             style: TextStyle(
-              fontSize: 28.0,
-              letterSpacing: 2.0,
-              color: Colors.grey[800],
+              fontSize: 20.0,
+              letterSpacing: 1.0,
+              color: greyColor,
             ),
-          )
+          ),
         )
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Vaayu'),
+        title: Center(
+          child: Text('Vaayu'),
+        ),
       ),
       body: Center(
         child: BlocBuilder<StationBloc, StationState>(
           builder: (context, state) {
             if (state is StationInitial) {
-              return ListView(
-                children: <Widget>[
-                  Center(
-                    child: DropdownButton(
-                      items: _stationDropDownItems,
-                      hint: Text(
-                        'Please select a location',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          letterSpacing: 2.0,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      autofocus: true,
-                      onChanged: (station) =>  {
-                        BlocProvider.of<StationBloc>(context).add(FetchStationDetails(station: station))
-                      }
-                    ),
-                  ),
-                ]
-              );
+              Station defaultStation = _stationDropDownItems[0].value;
+              BlocProvider
+                .of<StationBloc>(context)
+                .add(FetchStationDetails(station: defaultStation));
+
+              return Center(child: CircularProgressIndicator());
             }
             if (state is StationLoading) {
               return Center(child: CircularProgressIndicator());
@@ -72,9 +60,12 @@ class Home extends StatelessWidget {
                   Center(
                     child: DropdownButton(
                       items: _stationDropDownItems,
+                      underline: null,
                       value: state.station,
                       onChanged: (station) =>  {
-                        BlocProvider.of<StationBloc>(context).add(FetchStationDetails(station: station))
+                        BlocProvider
+                          .of<StationBloc>(context)
+                          .add(FetchStationDetails(station: station))
                       }
                     ),
                   ),

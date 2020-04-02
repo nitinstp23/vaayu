@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:vaayu/themes/colors.dart';
+import 'package:vaayu/widgets/widgets.dart';
 import 'package:vaayu/models/models.dart';
 
 class StationInfo extends StatelessWidget {
@@ -18,30 +20,7 @@ class StationInfo extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        CircleAvatar(
-          minRadius: 90.0,
-          child: ClipOval(
-            child: Column(
-              children: <Widget>[
-                Text(
-                  '${station.aqiValue}',
-                  style: TextStyle(
-                    fontSize: 86.0,
-                    color: Colors.grey[50]
-                  )
-                ),
-                Text(
-                  '(AQI)',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.grey[50]
-                  )
-                ),
-              ],
-            ),
-          ),
-        ),
+        RadialAqiValue(aqiValue: station.aqiValue.toDouble()),
         SizedBox(height: 20.0),
         Container(
           child: Card(
@@ -90,7 +69,7 @@ class StationInfo extends StatelessWidget {
                   aqiLevel.healthImplications,
                   style: TextStyle(
                     fontSize: 18.0,
-                    color: Colors.grey[800]
+                    color: greyColor
                   )
                 ),
               ),
@@ -114,7 +93,7 @@ class StationInfo extends StatelessWidget {
                   aqiLevel.cautionaryStatement,
                   style: TextStyle(
                     fontSize: 18.0,
-                    color: Colors.grey[800]
+                    color: greyColor
                   )
                 ),
               ),
@@ -138,7 +117,7 @@ class StationInfo extends StatelessWidget {
                   TimeOfDay.fromDateTime(station.measurementTime).format(context),
                   style: TextStyle(
                     fontSize: 18.0,
-                    color: Colors.grey[800]
+                    color: greyColor
                   )
                 ),
               ),
@@ -161,7 +140,7 @@ class StationInfo extends StatelessWidget {
                   'UTC ${station.timezone}',
                   style: TextStyle(
                     fontSize: 18.0,
-                    color: Colors.grey[800]
+                    color: greyColor
                   )
                 ),
               ),

@@ -11,9 +11,9 @@ import 'package:vaayu/widgets/widgets.dart';
 import 'package:vaayu/repositories/repositories.dart';
 import 'package:vaayu/blocs/blocs.dart';
 
-void main() {
+void main() async {
   BlocSupervisor.delegate = SimpleBlocDelegate();
-  DotEnv().load('.env');
+  await DotEnv().load('.env');
 
   final StationRepository stationRepository = StationRepository(
     aqiClient: AqiClient(
@@ -42,7 +42,21 @@ class App extends StatelessWidget {
       home: BlocProvider(
         create: (context) =>
             StationBloc(stationRepository: stationRepository),
-        child: Home(),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              stops: [0.6, 0.8, 1.0],
+              colors: [
+                Colors.purple[200],
+                Colors.purple[100],
+                Colors.purple[50],
+              ],
+            ),
+          ),
+          child: Home(),
+        )
       ),
     );
   }

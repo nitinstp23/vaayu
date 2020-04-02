@@ -27,13 +27,17 @@ abstract class StationState extends Equatable {
   List<Object> get props => [];
 }
 
-class StationInitial extends StationState {}
+class StationInitial extends StationState {
+  final Station station;
+  const StationInitial({this.station});
+}
 
-class StationLoading extends StationState {}
+class StationLoading extends StationState {
+  const StationLoading();
+}
 
 class StationLoaded extends StationState {
   final Station station;
-
   const StationLoaded({@required this.station}) : assert(station != null);
 
   @override
