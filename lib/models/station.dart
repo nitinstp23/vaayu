@@ -33,11 +33,12 @@ class Station extends Equatable{
     return [
       Station(name: 'bangalore', displayName: 'Bengaluru', image: ''),
       Station(name: 'chennai', displayName: 'Chennai', image: ''),
+      Station(name: 'delhi', displayName: 'New Delhi', image: ''),
       Station(name: 'gurgaon', displayName: 'Gurugram', image: ''),
       Station(name: 'hyderabad', displayName: 'Hyderabad', image: ''),
       Station(name: 'kolkata', displayName: 'Kolkata', image: ''),
       Station(name: 'mumbai', displayName: 'Mumbai', image: ''),
-      Station(name: 'delhi', displayName: 'New Delhi', image: ''),
+      Station(name: 'pune', displayName: 'Pune', image: ''),
     ];
   }
 }
