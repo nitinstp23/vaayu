@@ -52,43 +52,39 @@ class _RadialAqiValueState extends State<RadialAqiValue> with SingleTickerProvid
       child: Container(
         height: 200.0,
         width: 200.0,
-        child: AnimatedOpacity(
-          opacity: widget.aqiValue > 30 ? 1.0 : 0.0,
-          duration: Duration(milliseconds: 500),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                '${widget.aqiValue}',
-                style: TextStyle(
-                  color: greyColor,
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.w400
-                ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              '${widget.aqiValue}',
+              style: TextStyle(
+                color: greyColor,
+                fontSize: 40.0,
+                fontWeight: FontWeight.w400
               ),
-              SizedBox(
-                height: 4.0,
+            ),
+            SizedBox(
+              height: 4.0,
+            ),
+            Container(
+              height: 5.0,
+              width: 80.0,
+              decoration: BoxDecoration(
+                color: secondColor,
+                borderRadius: BorderRadius.all(Radius.circular(4.0))),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              '(AQI)',
+              style: TextStyle(
+                fontSize: 14.0,
+                color: greyColor,
+                letterSpacing: 1.5
               ),
-              Container(
-                height: 5.0,
-                width: 80.0,
-                decoration: BoxDecoration(
-                  color: secondColor,
-                  borderRadius: BorderRadius.all(Radius.circular(4.0))),
-              ),
-              SizedBox(
-                height: 8.0,
-              ),
-              Text(
-                '(AQI)',
-                style: TextStyle(
-                  fontSize: 14.0,
-                  color: greyColor,
-                  letterSpacing: 1.5
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       painter: RadialPainter(progressDegrees),

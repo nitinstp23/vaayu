@@ -18,14 +18,15 @@ class Home extends StatelessWidget {
     for(Station station in stationList) {
       _stationDropDownItems.add(
         DropdownMenuItem(
-          key: Key(station.hashCode.toString()),
           value: station,
-          child: Text(
-            station.displayName,
-            style: TextStyle(
-              fontSize: 20.0,
-              letterSpacing: 1.0,
-              color: greyColor,
+          child: Center(
+            child: Text(
+              station.displayName,
+              style: TextStyle(
+                fontSize: 20.0,
+                letterSpacing: 1.0,
+                color: greyColor,
+              ),
             ),
           ),
         )
@@ -61,7 +62,6 @@ class Home extends StatelessWidget {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton(
                         items: _stationDropDownItems,
-                        underline: null,
                         value: state.station,
                         onChanged: (station) =>  {
                           BlocProvider
