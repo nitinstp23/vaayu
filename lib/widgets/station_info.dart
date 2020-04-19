@@ -20,7 +20,7 @@ class StationInfo extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-        RadialAqiValue(aqiValue: station.aqiValue.toDouble()),
+        RadialAqiValue(aqiValue: station.aqiValue),
         SizedBox(height: 20.0),
         Container(
           child: Card(
@@ -115,29 +115,6 @@ class StationInfo extends StatelessWidget {
                 margin: EdgeInsets.only(top: 8.0),
                 child: Text(
                   TimeOfDay.fromDateTime(station.measurementTime).format(context),
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: greyColor
-                  )
-                ),
-              ),
-            ),
-          ),
-        ),
-        Container(
-          child: Card(
-            child: ListTile(
-              title: Text(
-                'Time Zone',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.grey[500]
-                )
-              ),
-              subtitle: Container(
-                margin: EdgeInsets.only(top: 8.0),
-                child: Text(
-                  'UTC ${station.timezone}',
                   style: TextStyle(
                     fontSize: 18.0,
                     color: greyColor

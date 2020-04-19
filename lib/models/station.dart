@@ -6,9 +6,9 @@ class Station extends Equatable{
   final String name;
   final String displayName;
   final String image;
-  int aqiValue;
+  double aqiValue;
   DateTime measurementTime;
-  String timezone;
+  String unit;
 
   Station({
     @required this.name,
@@ -16,7 +16,6 @@ class Station extends Equatable{
     @required this.image,
     this.aqiValue,
     this.measurementTime,
-    this.timezone
   });
 
   @override
@@ -26,19 +25,18 @@ class Station extends Equatable{
     image,
     aqiValue,
     measurementTime,
-    timezone
   ];
 
   static List<Station> getStations() {
     return [
-      Station(name: 'bangalore', displayName: 'Bengaluru', image: ''),
-      Station(name: 'chennai', displayName: 'Chennai', image: ''),
-      Station(name: 'delhi', displayName: 'New Delhi', image: ''),
-      Station(name: 'gurgaon', displayName: 'Gurugram', image: ''),
-      Station(name: 'hyderabad', displayName: 'Hyderabad', image: ''),
-      Station(name: 'kolkata', displayName: 'Kolkata', image: ''),
-      Station(name: 'mumbai', displayName: 'Mumbai', image: ''),
-      Station(name: 'pune', displayName: 'Pune', image: ''),
+      Station(name: 'Bengaluru', displayName: 'Bengaluru', image: ''),
+      Station(name: 'Chennai', displayName: 'Chennai', image: ''),
+      Station(name: 'Delhi', displayName: 'New Delhi', image: ''),
+      Station(name: 'Gurgaon', displayName: 'Gurugram', image: ''),
+      Station(name: 'Hyderabad', displayName: 'Hyderabad', image: ''),
+      Station(name: 'Kolkata', displayName: 'Kolkata', image: ''),
+      Station(name: 'Mumbai', displayName: 'Mumbai', image: ''),
+      Station(name: 'Pune', displayName: 'Pune', image: ''),
     ];
   }
 }

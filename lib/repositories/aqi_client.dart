@@ -1,11 +1,10 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:vaayu/models/station.dart';
 
 class AqiClient {
-  static const String apiHost = 'api.waqi.info';
+  static const String apiHost = 'api.openaq.org';
   final http.Client httpClient;
 
   AqiClient({
@@ -17,8 +16,8 @@ class AqiClient {
     final Uri apiUrl = Uri(
       scheme: 'https',
       host: apiHost,
-      path: '/feed/${station.name}/',
-      queryParameters: {'token': DotEnv().env['API_TOKEN']}
+      path: 'v1/latest',
+      queryParameters: {'country': 'IN', 'city': '${station.name}', 'limit': '1'}
     );
 
     final aqiResponse = await this.httpClient.get(apiUrl);
@@ -29,12 +28,14 @@ class AqiClient {
 
     final aqiJson = jsonDecode(aqiResponse.body) as Map;
 
-    if(aqiJson['status'] == 'ok') {
-      final aqiData = aqiJson['data'];
+    print(aqiJson);
+    if(aqiJson['results'].isNotEmpty) {
+      final measurements = aqiJson['results'][0]['measurements'];
 
-      station.aqiValue = aqiData['aqi'];
-      station.measurementTime = DateTime.parse(aqiData['time']['s']);
-      station.timezone = aqiData['time']['tz'];
+      final pm25Data = measurements.firstWhere((measurement) => measurement['parameter'] == "pm25");
+
+      station.aqiValue = pm25Data['value'].toDouble();
+      station.measurementTime = DateTime.parse(pm25Data['lastUpdated']);
 
       return station;
     } else {
