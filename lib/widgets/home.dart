@@ -54,7 +54,8 @@ class Home extends StatelessWidget {
               return Center(child: CircularProgressIndicator());
             }
             if (state is StationLoaded) {
-              final station = state.station;
+              final Station station = state.station;
+              final List<Measurement> measurements = state.measurements;
 
               return ListView(
                 children: <Widget>[
@@ -74,7 +75,7 @@ class Home extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 20.0),
                     child: Center(
-                      child: StationInfo(station: station),
+                      child: StationInfo(station: station, measurements: measurements),
                     ),
                   ),
                 ],

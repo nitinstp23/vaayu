@@ -5,8 +5,9 @@ import 'package:vaayu/themes/colors.dart';
 
 class RadialAqiValue extends StatefulWidget {
   final double aqiValue;
+  final String unit;
 
-  const RadialAqiValue({Key key, this.aqiValue}) : super(key: key);
+  const RadialAqiValue({Key key, this.aqiValue, this.unit}) : super(key: key);
 
   @override
   _RadialAqiValueState createState() => _RadialAqiValueState();
@@ -55,13 +56,26 @@ class _RadialAqiValueState extends State<RadialAqiValue> with SingleTickerProvid
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              '${widget.aqiValue}',
-              style: TextStyle(
-                color: greyColor,
-                fontSize: 40.0,
-                fontWeight: FontWeight.w400
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  widget.aqiValue.toString(),
+                  style: TextStyle(
+                    color: greyColor,
+                    fontSize: 35.0,
+                    fontWeight: FontWeight.w400
+                  ),
+                ),
+                Text(
+                  widget.unit,
+                  style: TextStyle(
+                    color: greyColor,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w400
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 4.0,
@@ -77,7 +91,7 @@ class _RadialAqiValueState extends State<RadialAqiValue> with SingleTickerProvid
               height: 8.0,
             ),
             Text(
-              '(AQI)',
+              '(PM 2.5)',
               style: TextStyle(
                 fontSize: 14.0,
                 color: greyColor,

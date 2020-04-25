@@ -1,21 +1,15 @@
 import 'package:meta/meta.dart';
 import 'package:equatable/equatable.dart';
 
-// TODO: Fix the immutable warning
 class Station extends Equatable{
   final String name;
   final String displayName;
   final String image;
-  double aqiValue;
-  DateTime measurementTime;
-  String unit;
 
   Station({
     @required this.name,
     @required this.displayName,
     @required this.image,
-    this.aqiValue,
-    this.measurementTime,
   });
 
   @override
@@ -23,8 +17,6 @@ class Station extends Equatable{
     name,
     displayName,
     image,
-    aqiValue,
-    measurementTime,
   ];
 
   static List<Station> getStations() {

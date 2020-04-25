@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
+import 'package:vaayu/models/models.dart';
 import 'dart:convert';
-import 'package:vaayu/models/station.dart';
 
 class AqiClient {
   static const String apiHost = 'api.openaq.org';
@@ -11,7 +11,7 @@ class AqiClient {
     @required this.httpClient,
   }) : assert(httpClient != null);
 
-  Future<Station> getAqiInfo(Station station) async {
+  Future<List<Measurement>> getAqiInfo(Station station) async {
     // make the request
     final Uri apiUrl = Uri(
       scheme: 'https',
@@ -30,14 +30,19 @@ class AqiClient {
 
     print(aqiJson);
     if(aqiJson['results'].isNotEmpty) {
-      final measurements = aqiJson['results'][0]['measurements'];
+      List<Measurement> measurements = [];
 
-      final pm25Data = measurements.firstWhere((measurement) => measurement['parameter'] == "pm25");
+      for(Map m in aqiJson['results'][0]['measurements']) {
+        final String name = m['parameter'];
+        final double value = m['value'].toDouble();
+        final DateTime lastUpdated = DateTime.parse(m['lastUpdated']);
+        final String unit = m['unit'];
 
-      station.aqiValue = pm25Data['value'].toDouble();
-      station.measurementTime = DateTime.parse(pm25Data['lastUpdated']);
+        Measurement measurement = Measurement(name: name, value: value, lastUpdated: lastUpdated, unit: unit);
+        measurements.add(measurement);
+      }
 
-      return station;
+      return measurements;
     } else {
       throw Exception('error getting aqiInfo for station');
     }

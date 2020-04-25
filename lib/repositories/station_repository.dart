@@ -12,7 +12,7 @@ class StationRepository {
     @required this.aqiClient
   }) : assert(aqiClient != null);
 
-  Future<Station> getAqiInfo(Station station) async {
+  Future<List<Measurement>> getAqiInfo(Station station) async {
     return await aqiClient.getAqiInfo(station);
   }
 }

@@ -38,7 +38,12 @@ class StationLoading extends StationState {
 
 class StationLoaded extends StationState {
   final Station station;
-  const StationLoaded({@required this.station}) : assert(station != null);
+  final List<Measurement> measurements;
+
+  const StationLoaded({
+    @required this.station,
+    @required this.measurements
+  }) : assert(station != null);
 
   @override
   List<Object> get props => [station];
@@ -67,8 +72,8 @@ class StationBloc extends Bloc<StationEvent, StationState> {
     yield StationLoading();
 
     try {
-      final Station station = await stationRepository.getAqiInfo(event.station);
-      yield StationLoaded(station: station);
+      final List<Measurement> measurements = await stationRepository.getAqiInfo(event.station);
+      yield StationLoaded(station: event.station, measurements: measurements);
     } catch (_) {
       yield StationError();
     }

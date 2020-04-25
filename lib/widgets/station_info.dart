@@ -6,21 +6,31 @@ import 'package:vaayu/models/models.dart';
 
 class StationInfo extends StatelessWidget {
   final Station station;
+  final List<Measurement> measurements;
   final List<AqiLevel> aqiLevels = AqiLevel.getAqiLevels();
 
-  StationInfo({Key key, @required this.station})
-      : assert(station != null),
-        super(key: key);
+  StationInfo({
+    Key key,
+    @required this.station,
+    @required this.measurements
+  }) : assert(station != null), super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Measurement pm25 = measurements.firstWhere((measurement) =>
+      measurement.name == "pm25"
+    );
+    measurements.remove(pm25);
+
     AqiLevel aqiLevel = aqiLevels.firstWhere((aqiLevel) =>
-      station.aqiValue >= aqiLevel.min  && station.aqiValue <= aqiLevel.max
+      pm25.value >= aqiLevel.min  && pm25.value <= aqiLevel.max
     );
 
     return Column(
       children: <Widget>[
-        RadialAqiValue(aqiValue: station.aqiValue),
+        RadialAqiValue(aqiValue: pm25.value, unit: pm25.unit),
+        SizedBox(height: 20.0),
+        MeasurementTable(measurements: measurements),
         SizedBox(height: 20.0),
         Container(
           child: Card(
@@ -114,7 +124,7 @@ class StationInfo extends StatelessWidget {
               subtitle: Container(
                 margin: EdgeInsets.only(top: 8.0),
                 child: Text(
-                  TimeOfDay.fromDateTime(station.measurementTime).format(context),
+                  TimeOfDay.fromDateTime(pm25.lastUpdated).format(context),
                   style: TextStyle(
                     fontSize: 18.0,
                     color: greyColor
